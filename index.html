@@ -129,7 +129,7 @@ h1{
 .route-meta{ display:flex; justify-content:space-between; gap:8px 24px; flex-wrap:wrap; color:var(--muted); font-size:.9375rem; margin-bottom:10px; }
 .route-meta b{ color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
 
-.bracket{ margin:18px calc(100%/7) 12px; text-align:center; font-size:.875rem; line-height:1.35; color:var(--muted); }
+.bracket{ margin:18px calc((100% - 36px)/7 + 36px) 12px calc((100% - 36px)/7); text-align:center; font-size:.875rem; line-height:1.35; color:var(--muted); }
 .bracket::after{ content:""; display:block; height:12px; margin-top:6px; border:1.5px solid var(--rule); border-bottom:0; }
 .line-wrap{ position:relative; }
 
@@ -160,9 +160,35 @@ h1{
   100%{ left:calc(100% - 100%/14); opacity:0; }
 }
 
-.branch{ margin-left:calc(100%*6/7); width:calc(100%/7); position:relative; padding-top:26px; }
-.branch::before{ content:""; position:absolute; top:-4px; left:50%; width:6px; margin-left:-3px; height:30px; background:var(--line-v); }
-.branch .stn{ width:100%; }
+/* the request turns back through the gateway and is logged by outcome */
+.net{ display:grid; grid-template-columns:minmax(0, 1fr); grid-template-rows:auto 34px auto; padding-right:36px; }
+.net > .line-wrap{ grid-row:1; grid-column:1; }
+.drop{ position:relative; grid-row:1 / 3; grid-column:1; justify-self:end; width:calc(100%/14 + 24px); margin:9px -24px 0 0; pointer-events:none; }
+.drop::before{ content:""; position:absolute; left:0; right:0; top:0; height:6px; background:var(--line-h); }
+.drop::after{ content:""; position:absolute; right:0; top:0; bottom:0; width:6px; background:var(--line-v); }
+.logpanel{
+  grid-row:3; grid-column:1; margin:0 -24px 0 0; position:relative; cursor:pointer; text-align:left;
+  display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr); align-items:center; gap:24px 64px;
+  padding:36px 28px 28px; background:var(--soft); border:0; color:inherit;
+}
+.logpanel::before{ content:""; position:absolute; left:0; right:0; top:0; height:6px; background:var(--line-h); }
+.lp-dot{ position:absolute; top:-12px; left:28px; width:30px; height:30px; border-color:var(--lens); }
+.logpanel.sel .lp-dot{ background:var(--lens); }
+.lp-dot.ping{ animation:ping 1.3s ease-out 1; }
+.lp-main{ display:block; }
+.lp-when{ display:block; font-size:.9375rem; color:var(--muted); }
+.lp-name{ display:block; font-size:clamp(1.5rem, 2.6vw, 1.875rem); font-weight:800; line-height:1.15; margin-top:2px; }
+.logpanel:hover .lp-name{ text-decoration:underline; text-underline-offset:.18em; text-decoration-thickness:2px; }
+.lp-stat{ display:flex; align-items:flex-end; gap:14px; margin-top:14px; }
+.lp-num{ font-size:clamp(3.25rem, 6.5vw, 4.75rem); font-weight:800; line-height:.82; letter-spacing:-.03em; color:var(--lens); font-variant-numeric:tabular-nums; transition:color .3s; }
+.lp-unit{ max-width:19ch; font-size:1rem; line-height:1.3; color:var(--muted); padding-bottom:2px; }
+.lp-fork{ position:relative; display:grid; gap:14px; padding-left:40px; }
+.lp-fork::before{ content:""; position:absolute; left:10px; top:29px; bottom:29px; width:6px; background:var(--line-v); }
+.lp-fork::after{ content:""; position:absolute; left:-64px; width:80px; top:50%; height:6px; margin-top:-3px; background:var(--line-h); }
+.lp-arm{ position:relative; display:flex; flex-direction:column; justify-content:center; min-height:58px; padding:8px 16px; background:var(--surface); border:1.5px solid var(--rule); }
+.lp-arm::before{ content:""; position:absolute; left:-25.5px; width:24px; top:50%; height:6px; margin-top:-3px; background:var(--line-h); }
+.lp-dest{ display:block; font-weight:700; line-height:1.25; }
+.lp-desc{ display:block; font-size:.9375rem; line-height:1.3; color:var(--muted); }
 
 .rail{
   margin-top:26px; width:100%; display:flex; align-items:center; gap:14px; text-align:left; cursor:pointer;
@@ -191,9 +217,15 @@ h1{
   @keyframes travel-v{
     0%{ top:5px; opacity:0; } 6%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% - 19px); opacity:0; }
   }
-  .branch{ margin-left:28px; width:auto; padding-top:16px; }
-  .branch::before{ left:-19px; top:-20px; height:55px; margin:0; width:6px; transform:none; }
-  .branch::after{ content:""; position:absolute; left:-19px; top:29px; width:22px; height:6px; background:var(--line-h); }
+  .bracket{ margin:0; }
+  .net{ padding-right:0; grid-template-rows:auto 30px auto; }
+  .drop{ grid-row:2; justify-self:start; width:6px; margin:-14px 0 0 9px; }
+  .drop::before{ display:none; }
+  .drop::after{ right:auto; left:0; }
+  .logpanel{ margin:0; grid-template-columns:minmax(0, 1fr); gap:22px; padding:32px 18px 20px; }
+  .lp-dot{ left:-3px; }
+  .lp-fork::after{ display:none; }
+  .lp-fork::before{ top:-22px; }
 }
 
 /* ---------- sections ---------- */
@@ -373,6 +405,7 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
         <span>Deployed region by region; each region fully isolated</span>
       </div>
       <div class="bracket" aria-hidden="true">The gateway: a stateless data plane, with service API specs held by a control plane on Oracle NoSQL</div>
+      <div class="net">
       <div class="line-wrap">
       <ol class="stations" id="stations">
         <li class="stn minor"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Caller</span></span></li>
@@ -385,8 +418,19 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
       </ol>
       <span class="packet" aria-hidden="true"></span>
       </div>
-      <div class="branch">
-        <div class="stn" data-target="logging" data-lens="reliability"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Log by outcome</span><span class="sub">80% fewer log bytes</span></span></button></div>
+      <span class="drop" aria-hidden="true"></span>
+      <button class="logpanel" type="button" id="logpanel" data-target="logging" data-lens="reliability">
+        <span class="dot lp-dot" aria-hidden="true"></span>
+        <span class="lp-main">
+          <span class="lp-when">After every response</span>
+          <span class="lp-name">Log by outcome</span>
+          <span class="lp-stat"><span class="lp-num">80%</span><span class="lp-unit">fewer bytes sent to the log service, measured in production</span></span>
+        </span>
+        <span class="lp-fork">
+          <span class="lp-arm"><span class="lp-dest">Log service</span><span class="lp-desc">Internal and user errors, kept searchable</span></span>
+          <span class="lp-arm"><span class="lp-dest">Object storage</span><span class="lp-desc">Everything else, at lower cost</span></span>
+        </span>
+      </button>
       </div>
       <button class="rail" type="button" data-target="java" data-lens="reliability">
         <span class="dot" aria-hidden="true"></span>
@@ -654,12 +698,12 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
     all: {
       name: "",
       lede: "For eight years I built and ran the control-plane API gateway for Oracle Cloud Infrastructure: authentication, authorization, throttling, quota, and routing in front of OCI's control-plane services, across many fully isolated regions.",
-      order: ["throttle","authz","logging","sandbox","java","dashboard","iam","shipper","dualbuild"]
+      order: ["logging","throttle","authz","sandbox","java","dashboard","iam","shipper","dualbuild"]
     },
     traffic: {
       name: "traffic and gateways",
       lede: "For eight years I built and ran the control-plane API gateway for Oracle Cloud Infrastructure, including the throttling and routing features I used on call to shed load and contain heavy tenants.",
-      order: ["throttle","authz","sandbox","logging","java","dashboard","iam","shipper","dualbuild"]
+      order: ["throttle","logging","authz","sandbox","java","dashboard","iam","shipper","dualbuild"]
     },
     identity: {
       name: "identity and security",
@@ -669,7 +713,7 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
     reliability: {
       name: "reliability and observability",
       lede: "For eight years I kept the control-plane API gateway for Oracle Cloud Infrastructure steady across many isolated regions: shedding load on call, rolling runtime upgrades out region by region, and cutting log ingestion by 80%.",
-      order: ["throttle","java","logging","shipper","authz","sandbox","dualbuild","dashboard","iam"]
+      order: ["logging","throttle","java","shipper","authz","sandbox","dualbuild","dashboard","iam"]
     }
   };
 
@@ -748,7 +792,7 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
     root.setAttribute("data-lens", lens);
     lensBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-lens") === lens)); });
 
-    document.querySelectorAll(".stn[data-target], .rail, .job").forEach(function(el){
+    document.querySelectorAll(".stn[data-target], .rail, .logpanel, .job").forEach(function(el){
       el.classList.toggle("on", lens === "all" || hasLens(el, lens));
     });
 
@@ -874,6 +918,8 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
   });
   var rail = document.querySelector(".rail");
   rail.addEventListener("click", function(){ openProject(rail.getAttribute("data-target"), rail); });
+  var logpanel = document.getElementById("logpanel");
+  logpanel.addEventListener("click", function(){ openProject("logging", logpanel); });
 
   /* ---------- skill filter ---------- */
   var filter = document.getElementById("filter");
@@ -940,7 +986,11 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
 
   /* ---------- one request runs the route, once ---------- */
   var route = document.getElementById("route");
-  function run(){ if (!reduce) route.classList.add("run"); }
+  function run(){
+    if (reduce) return;
+    route.classList.add("run");
+    setTimeout(function(){ document.querySelector(".lp-dot").classList.add("ping"); }, 2900);
+  }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(run, run); else run();
 })();
 </script>
