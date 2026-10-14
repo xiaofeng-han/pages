@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en" data-lens="traffic">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xiaofeng Han</title>
+<meta name="description" content="Xiaofeng Han, principal-level backend engineer. Eight years building and running the control-plane API gateway for Oracle Cloud Infrastructure: authentication, authorization, throttling, quota, and routing in front of OCI's control-plane services, across many fully isolated regions.">
+<meta property="og:title" content="Xiaofeng Han">
+<meta property="og:description" content="Eight years building and running the control-plane API gateway for Oracle Cloud Infrastructure.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://xiaofeng-han.github.io/pages/">
+<meta name="theme-color" content="#F1F3F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1923" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300..900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='14' width='28' height='4' rx='2' fill='%23C13A22'/%3E%3Ccircle cx='16' cy='16' r='7' fill='white' stroke='%23C13A22' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#F1F3F4;
+  --surface:#FFFFFF;
+  --ink:#16212B;
+  --muted:#56636E;
+  --rule:#D3D9DE;
+  --soft:#E5E9EC;
+  --traffic:#C13A22;
+  --identity:#1D5FA6;
+  --reliability:#167A55;
+  --lens:var(--traffic);
+  --font:"Overpass", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter:clamp(16px, 4vw, 48px);
+  --max:1120px;
+  --measure:66ch;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1923; --surface:#152431; --ink:#E4EAF0; --muted:#9AA9B6; --rule:#2B3B4A; --soft:#1B2D3C;
+    --traffic:#F2836C; --identity:#78AAEB; --reliability:#4FC593;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1923; --surface:#152431; --ink:#E4EAF0; --muted:#9AA9B6; --rule:#2B3B4A; --soft:#1B2D3C;
+  --traffic:#F2836C; --identity:#78AAEB; --reliability:#4FC593;
+  color-scheme:dark;
+}
+html[data-lens="identity"]{ --lens:var(--identity); }
+html[data-lens="reliability"]{ --lens:var(--reliability); }
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font); font-size:1.125rem; line-height:1.55;
+  font-feature-settings:"kern","liga";
+  -webkit-font-smoothing:antialiased;
+}
+a{ color:inherit; text-decoration-thickness:1px; text-underline-offset:.18em; }
+a:hover{ text-decoration-thickness:2px; }
+button{ font:inherit; color:inherit; }
+:focus-visible{ outline:3px solid var(--lens); outline-offset:3px; border-radius:4px; }
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 var(--gutter); }
+code{ font-size:.92em; }
+.sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+/* ---------- top bar ---------- */
+.top{ display:flex; justify-content:flex-end; align-items:center; gap:4px 20px; flex-wrap:wrap; padding-top:20px; font-size:1rem; }
+.top a, .top .linkish{ color:var(--muted); text-decoration:none; }
+.top a:hover, .top .linkish:hover{ color:var(--ink); text-decoration:underline; }
+.linkish{ background:none; border:0; padding:0; cursor:pointer; }
+.theme{ width:36px; height:36px; display:grid; place-items:center; border:1px solid var(--rule); border-radius:50%; background:var(--surface); cursor:pointer; color:var(--ink); }
+.theme svg{ width:18px; height:18px; }
+.theme svg[hidden]{ display:none; }
+
+/* ---------- hero ---------- */
+.hero{ padding:clamp(28px, 6vw, 72px) 0 12px; }
+h1{
+  font-size:clamp(2.75rem, 7.2vw, 4.5rem); font-weight:800; line-height:.95;
+  letter-spacing:-.02em; margin:0 0 18px;
+}
+.role{ margin:0; color:var(--muted); font-size:1.125rem; }
+.lede{ max-width:var(--measure); font-size:clamp(1.25rem, 2.1vw, 1.375rem); line-height:1.5; margin:22px 0 10px; transition:opacity .18s ease; }
+.lede.swap{ opacity:0; }
+.before{ max-width:var(--measure); color:var(--muted); margin:0; }
+
+.focus{ margin-top:32px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; }
+.focus-label{ font-weight:700; margin-right:2px; }
+.lenses{ display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; border:0; }
+.lens-btn{
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  padding:9px 16px 8px 12px; border-radius:999px; border:1.5px solid var(--rule);
+  background:var(--surface); font-size:1rem; font-weight:600; line-height:1.2;
+}
+.lens-btn .sw{ width:22px; height:6px; border-radius:3px; background:var(--c); flex:none; }
+.lens-btn[aria-pressed="true"]{ border-color:var(--c); box-shadow:inset 0 0 0 1.5px var(--c); }
+.lens-btn[data-lens="traffic"]{ --c:var(--traffic); }
+.lens-btn[data-lens="identity"]{ --c:var(--identity); }
+.lens-btn[data-lens="reliability"]{ --c:var(--reliability); }
+.copy{ font-size:1rem; color:var(--muted); }
+.status{ font-size:.9375rem; color:var(--lens); font-weight:600; min-height:1.4em; }
+
+/* ---------- route diagram ---------- */
+.route{ margin:44px 0 0; padding:28px clamp(16px, 3vw, 32px) 28px; background:var(--surface); border:1px solid var(--rule); border-radius:18px; }
+.route-cap{ margin:0 0 22px; max-width:var(--measure); }
+.route-cap strong{ font-weight:700; }
+.route-meta{ display:flex; justify-content:space-between; gap:8px 24px; flex-wrap:wrap; color:var(--muted); font-size:.9375rem; margin-bottom:10px; }
+.route-meta b{ color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
+
+.bracket{ margin:18px calc(100%/7) 12px; text-align:center; font-size:.875rem; line-height:1.35; color:var(--muted); }
+.bracket::after{ content:""; display:block; height:12px; margin-top:6px; border:1.5px solid var(--rule); border-bottom:0; border-radius:10px 10px 0 0; }
+.line-wrap{ position:relative; }
+
+.stations{ position:relative; display:flex; list-style:none; margin:0; padding:0; }
+.stations::before{
+  content:""; position:absolute; top:12px; height:5px; border-radius:3px; background:var(--lens);
+  left:calc(100%/14); right:calc(100%/14); transition:background .3s ease;
+}
+.stn{ flex:1 1 0; min-width:0; position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.stn > .hit{ display:flex; flex-direction:column; align-items:center; width:100%; padding:0 4px 4px; background:none; border:0; border-radius:12px; cursor:pointer; }
+.dot{ display:block; width:29px; height:29px; border-radius:50%; position:relative; z-index:1; flex:none; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s, background .3s, transform .2s; }
+.stn.minor .dot{ width:15px; height:15px; margin:7px 0; border:0; background:var(--muted); }
+.stn.on .dot{ border-color:var(--lens); }
+.stn.sel .dot{ background:var(--lens); }
+.hit:hover .dot{ transform:scale(1.12); }
+.lbl{ display:block; margin-top:10px; font-weight:700; font-size:1rem; line-height:1.25; }
+.sub{ display:block; margin-top:3px; font-size:.875rem; line-height:1.3; color:var(--muted); }
+.stn.minor .lbl{ font-weight:600; color:var(--muted); margin-top:8px; }
+.stn.end .lbl{ font-size:1.0625rem; }
+.hit:hover .lbl{ text-decoration:underline; text-underline-offset:.2em; }
+
+.packet{ position:absolute; top:7px; left:calc(100%/14); width:15px; height:15px; margin-left:-7px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 4px var(--surface); opacity:0; z-index:2; pointer-events:none; }
+.route.run .packet{ animation:travel 2.6s cubic-bezier(.45,.05,.35,1) .35s 1 both; }
+@keyframes travel{
+  0%{ left:calc(100%/14); opacity:0; }
+  6%{ opacity:1; }
+  90%{ opacity:1; }
+  100%{ left:calc(100% - 100%/14); opacity:0; }
+}
+
+.branch{ margin-left:calc(100%*6/7); width:calc(100%/7); position:relative; padding-top:26px; }
+.branch::before{ content:""; position:absolute; top:-4px; left:50%; width:5px; margin-left:-2.5px; height:30px; border-radius:3px; background:var(--lens); transition:background .3s; }
+.branch .stn{ width:100%; }
+
+.rail{
+  margin-top:26px; width:100%; display:flex; align-items:center; gap:14px; text-align:left; cursor:pointer;
+  padding:12px 16px; border-radius:12px; border:1.5px dashed var(--rule); background:transparent;
+}
+.rail .dot{ width:22px; height:22px; border-width:4px; }
+.rail.on .dot{ border-color:var(--lens); }
+.rail.sel .dot{ background:var(--lens); }
+.rail .lbl{ margin:0; }
+.rail .sub{ margin:0; }
+.rail:hover .lbl{ text-decoration:underline; text-underline-offset:.2em; }
+
+@media (max-width: 760px){
+  .bracket{ display:none; }
+  .stations{ flex-direction:column; gap:6px; }
+  .stations::before{ top:14px; bottom:14px; left:12px; right:auto; width:5px; height:auto; }
+  .stn{ align-items:stretch; text-align:left; }
+  .stn > .hit, .stn.minor, .stn.end{ flex-direction:row; align-items:flex-start; gap:14px; padding:4px 0; text-align:left; }
+  .stn > .hit{ align-items:flex-start; }
+  .stn.minor .dot{ margin:7px 7px; }
+  .stn .txt{ padding-top:2px; }
+  .lbl{ margin-top:0; }
+  .stn.minor .lbl{ margin-top:4px; }
+  .packet{ left:5px !important; top:14px; margin-left:0; }
+  .route.run .packet{ animation-name:travel-v; }
+  @keyframes travel-v{
+    0%{ top:7px; opacity:0; } 6%{ opacity:1; } 90%{ opacity:1; } 100%{ top:calc(100% - 22px); opacity:0; }
+  }
+  .branch{ margin-left:28px; width:auto; padding-top:16px; }
+  .branch::before{ left:-15px; top:-20px; height:36px; margin:0; width:5px; transform:none; }
+  .branch::after{ content:""; position:absolute; left:-15px; top:12px; width:22px; height:5px; border-radius:3px; background:var(--lens); }
+}
+
+/* ---------- sections ---------- */
+section{ padding:clamp(56px, 8vw, 96px) 0 0; }
+h2{ font-size:clamp(1.875rem, 3.6vw, 2.25rem); line-height:1.1; font-weight:800; letter-spacing:-.01em; margin:0 0 10px; }
+.intro{ color:var(--muted); margin:0 0 30px; max-width:var(--measure); }
+.intro b{ color:var(--ink); }
+
+/* ---------- work list ---------- */
+.work{ list-style:none; margin:0; padding:0; position:relative; }
+.work::before{ content:""; position:absolute; left:13px; top:20px; bottom:20px; width:5px; border-radius:3px; background:var(--lens); transition:background .3s; }
+.job{ position:relative; padding:0 0 30px 56px; scroll-margin-top:96px; }
+.job:last-child{ padding-bottom:0; }
+.job > .mk{ position:absolute; left:1px; top:2px; width:29px; height:29px; border-radius:50%; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s; }
+.job.on > .mk{ border-color:var(--lens); }
+.job.minor > .mk{ width:15px; height:15px; left:8px; top:8px; border:0; background:var(--muted); }
+.job h3{ margin:0; font-size:1.3125rem; line-height:1.3; font-weight:700; max-width:var(--measure); }
+.job.minor h3{ font-size:1.125rem; }
+.job .what{ margin:6px 0 0; max-width:var(--measure); }
+.job .meta{ margin:6px 0 0; font-size:.9375rem; color:var(--muted); }
+.job details{ margin-top:10px; }
+.job summary{ cursor:pointer; display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:1rem; color:var(--lens); list-style:none; padding:2px 0; }
+.job summary::-webkit-details-marker{ display:none; }
+.job summary::before{ content:""; width:8px; height:8px; border-right:2.5px solid currentColor; border-bottom:2.5px solid currentColor; transform:rotate(-45deg); transition:transform .2s; margin-right:2px; }
+.job details[open] summary::before{ transform:rotate(45deg) translate(-2px,-2px); }
+.job summary .when-open{ display:none; }
+.job details[open] summary .when-open{ display:inline; }
+.job details[open] summary .when-closed{ display:none; }
+.deep{ margin:14px 0 0; display:grid; grid-template-columns:11.5rem minmax(0, var(--measure)); gap:12px 24px; padding:20px 22px; background:var(--surface); border:1px solid var(--rule); border-radius:14px; }
+.deep dt{ font-weight:700; }
+.deep dd{ margin:0; }
+.job.flash > .mk{ animation:ping 1.4s ease-out 1; }
+@keyframes ping{ 0%{ box-shadow:0 0 0 0 var(--lens); } 100%{ box-shadow:0 0 0 18px transparent; } }
+.job.dim > :not(.mk){ opacity:.35; }
+.job.dim > .mk{ border-color:var(--rule); }
+.job.match h3{ text-decoration:underline; text-decoration-color:var(--lens); text-decoration-thickness:3px; text-underline-offset:.22em; }
+.filter{ display:none; align-items:center; flex-wrap:wrap; gap:8px 12px; margin:-12px 0 24px; padding:10px 14px; border-radius:10px; background:var(--soft); position:sticky; top:12px; z-index:3; box-shadow:0 0 0 1px var(--rule); }
+.filter.show{ display:flex; }
+.filter button{ background:none; border:1px solid var(--rule); background:var(--surface); border-radius:999px; padding:3px 12px; cursor:pointer; font-size:.9375rem; }
+@media (max-width: 760px){
+  .deep{ grid-template-columns:1fr; gap:4px; padding:16px; }
+  .deep dd{ margin-bottom:10px; }
+  .job{ padding-left:48px; }
+}
+
+/* ---------- career chart ---------- */
+.career{ --y0:2007; --y1:2027; }
+.axis, .row-sum{ display:grid; grid-template-columns:minmax(0, 20rem) minmax(0, 1fr); gap:0 28px; align-items:center; }
+.axis{ color:var(--muted); font-size:.875rem; font-variant-numeric:tabular-nums; margin-bottom:6px; }
+.ticks{ position:relative; height:1.4em; }
+.ticks span{ position:absolute; transform:translateX(-50%); left:calc((var(--y) - var(--y0)) / (var(--y1) - var(--y0)) * 100%); }
+.rows{ list-style:none; margin:0; padding:0; border-top:1px solid var(--rule); }
+.rows > li{ border-bottom:1px solid var(--rule); }
+.rows details > summary{ list-style:none; cursor:pointer; padding:16px 0; }
+.rows details > summary::-webkit-details-marker{ display:none; }
+.co{ font-weight:700; font-size:1.125rem; display:block; line-height:1.3; }
+.ttl{ display:block; color:var(--muted); font-size:1rem; line-height:1.35; }
+.dates{ display:block; font-size:.9375rem; color:var(--muted); font-variant-numeric:tabular-nums; margin-top:2px; }
+.track{ position:relative; height:14px; border-radius:7px; background:var(--soft); }
+.track::after{
+  content:""; position:absolute; top:0; bottom:0; border-radius:7px; background:var(--ink);
+  left:calc((var(--s) - var(--y0)) / (var(--y1) - var(--y0)) * 100%);
+  width:calc((var(--e) - var(--s)) / (var(--y1) - var(--y0)) * 100%);
+}
+.rows li.current .track::after{ background:var(--lens); transition:background .3s; }
+.rows details[open] .co{ text-decoration:underline; text-underline-offset:.2em; text-decoration-thickness:2px; }
+.rows .more{ padding:0 0 20px; display:grid; grid-template-columns:minmax(0, 20rem) minmax(0, 1fr); gap:0 28px; }
+.rows .more ul{ grid-column:2; margin:0; padding-left:1.1em; max-width:var(--measure); }
+.rows .more li + li{ margin-top:8px; }
+.hint{ color:var(--muted); font-size:.9375rem; margin:14px 0 0; }
+@media (max-width: 760px){
+  .axis{ grid-template-columns:1fr; }
+  .axis > :first-child{ display:none; }
+  .row-sum{ grid-template-columns:1fr; gap:10px; }
+  .rows .more{ grid-template-columns:1fr; }
+  .rows .more ul{ grid-column:1; }
+}
+
+/* ---------- skills ---------- */
+.skills{ display:grid; grid-template-columns:minmax(0, 14rem) minmax(0, 1fr); gap:18px 28px; margin:0; }
+.skills dt{ font-weight:700; }
+.skills dd{ margin:0; max-width:var(--measure); }
+.sk{ background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-decoration-color:var(--rule); text-decoration-thickness:2px; text-underline-offset:.22em; }
+.sk:hover, .sk[aria-pressed="true"]{ text-decoration-color:var(--lens); }
+.sk[aria-pressed="true"]{ font-weight:700; }
+@media (max-width: 760px){ .skills{ grid-template-columns:1fr; gap:4px; } .skills dd{ margin-bottom:14px; } }
+
+/* ---------- footer ---------- */
+.outside{ max-width:var(--measure); margin:0; }
+footer{ margin-top:clamp(64px, 9vw, 112px); padding:28px 0 48px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 28px; color:var(--muted); font-size:1rem; }
+footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
+.print-only{ display:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+  .packet{ display:none; }
+}
+
+@media print{
+  :root, :root[data-theme="dark"]{ --bg:#fff; --surface:#fff; --ink:#000; --muted:#333; --rule:#bbb; --soft:#eee; color-scheme:light; }
+  body{ font-size:10.5pt; }
+  .top, .focus, .status, .packet, .filter, .intro, .route-cap, .job summary, footer .links button{ display:none !important; }
+  .rows > li{ break-inside:avoid; }
+  .print-only{ display:inline; }
+  .hero{ padding-top:0; }
+  h1{ font-size:28pt; }
+  .route{ border:0; padding:0; margin-top:16px; break-inside:avoid; }
+  section{ padding-top:22px; }
+  .job{ break-inside:avoid; padding-bottom:12px; }
+  .job.dim{ opacity:1; }
+  .rows details > summary{ padding:8px 0; }
+  a{ text-decoration:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top" aria-label="Contact">
+    <a href="https://www.linkedin.com/in/xiaofeng-han/" rel="me">LinkedIn</a>
+    <span id="email-slot"><button class="linkish" type="button" id="email-btn">Show email</button></span>
+    <button class="linkish" type="button" id="print-btn">Save as PDF</button>
+    <button class="theme" type="button" id="theme-btn" aria-label="Switch theme">
+      <svg id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" hidden><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+    </button>
+  </nav>
+
+  <header class="hero">
+    <h1>Xiaofeng Han</h1>
+    <p class="role">Principal Member of Technical Staff at Oracle Cloud Infrastructure, 2018–2026<br>Sammamish, WA<span class="print-only" id="print-contact"></span></p>
+    <p class="lede" id="lede">For eight years I built and ran the control-plane API gateway for Oracle Cloud Infrastructure: authentication, authorization, throttling, quota, and routing in front of OCI's control-plane services, across many fully isolated regions.</p>
+    <p class="before">Before OCI: a recommendation service at eBay handling 100M+ requests a day, a mobile API proxy and the Android app at Rhapsody, and test automation for web services at RealNetworks.</p>
+
+    <div class="focus">
+      <span class="focus-label" id="focus-label">Focus</span>
+      <div class="lenses" role="group" aria-labelledby="focus-label">
+        <button class="lens-btn" type="button" data-lens="traffic" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Traffic and gateways</button>
+        <button class="lens-btn" type="button" data-lens="identity" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Identity and security</button>
+        <button class="lens-btn" type="button" data-lens="reliability" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Reliability and observability</button>
+      </div>
+      <button class="linkish copy" type="button" id="copy-btn">Copy link to this view</button>
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+    </div>
+
+    <figure class="route" id="route" aria-labelledby="route-cap">
+      <p class="route-cap" id="route-cap"><strong>One request through the gateway, in one region.</strong> Select a stage to read what I built there.</p>
+      <div class="route-meta">
+        <span>Every request to the control-plane services behind it, at high and uneven volume</span>
+        <span>Deployed region by region; each region fully isolated</span>
+      </div>
+      <div class="bracket" aria-hidden="true">The gateway: a stateless data plane, with service API specs held by a control plane on Oracle NoSQL</div>
+      <div class="line-wrap">
+      <ol class="stations" id="stations">
+        <li class="stn minor"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Caller</span></span></li>
+        <li class="stn minor"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Authenticate</span></span></li>
+        <li class="stn" data-target="authz" data-lens="identity traffic"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Authorize</span><span class="sub">Shadow-mode migration, ~17 teams</span></span></button></li>
+        <li class="stn" data-target="sandbox" data-lens="identity"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Context expressions</span><span class="sub">Allowlist sandbox</span></span></button></li>
+        <li class="stn" data-target="throttle" data-lens="traffic reliability"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Throttle and quota</span><span class="sub">On-call load shedding</span></span></button></li>
+        <li class="stn" data-target="throttle" data-lens="traffic"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Route</span><span class="sub">Per-service routing</span></span></button></li>
+        <li class="stn minor end"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Control-plane services</span><span class="sub">A few carry much of the load</span></span></li>
+      </ol>
+      <span class="packet" aria-hidden="true"></span>
+      </div>
+      <div class="branch">
+        <div class="stn" data-target="logging" data-lens="reliability"><button class="hit" type="button"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">Log by outcome</span><span class="sub">80% fewer log bytes</span></span></button></div>
+      </div>
+      <button class="rail" type="button" data-target="java" data-lens="reliability">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="txt"><span class="lbl">Runtime under every stage</span><span class="sub">Java 8 → 17 → 21 → 25, rolled out region by region</span></span>
+      </button>
+    </figure>
+  </header>
+
+  <main>
+    <section id="work-section" aria-labelledby="work-h">
+      <h2 id="work-h">What I built</h2>
+      <p class="intro" id="work-intro">Ordered for <b>traffic and gateways</b>. Stations ringed in that color matter most for it. Open any one for the details.</p>
+      <div class="filter" id="filter" role="status"><span id="filter-text"></span><button type="button" id="filter-clear">Show all</button></div>
+
+      <ol class="work" id="work">
+
+        <li class="job" data-id="throttle" data-lens="traffic reliability" data-skills="ratelimit routing oncall grafana java">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>Throttling and routing, used as the incident lever</h3>
+          <p class="what">Built the gateway's throttling and routing features, then used them on call to shed load in front of struggling services.</p>
+          <p class="meta">Throttle and route stages. Rate limiting, quota, routing, incident response.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>The problem</dt>
+              <dd>Traffic is uneven. A small number of services generate a large share of it, so when one service or one tenant runs hot, everything sharing the gateway feels it.</dd>
+              <dt>What I built</dt>
+              <dd>Throttling and routing features in the gateway. Throttle policies stay with the service teams that own them; the gateway enforces them on every request.</dd>
+              <dt>On call</dt>
+              <dd>Overrode a service's throttle limits to shed load so the downstream service could recover, and throttled specific heavy tenants to stabilize a service without cutting off everyone else.</dd>
+              <dt>The hard part</dt>
+              <dd>Choosing the narrowest cut under incident pressure, the whole service or one tenant, when the policy being overridden belongs to another team.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job" data-id="authz" data-lens="identity traffic" data-skills="authz sdk java">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>Shadow-mode verification for moving authorization into the gateway</h3>
+          <p class="what">Let service teams prove the gateway would send the same authorization request they did, before they switched. I onboarded 2 teams directly; about 15 more did it on their own.</p>
+          <p class="meta">Authorize stage. Authorization, IAM, shared SDK, migration.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>The problem</dt>
+              <dd>Services authorized requests themselves by calling Identity through a shared SDK, so the gateway never saw what they sent. Teams wanted to move authorization into the gateway but needed evidence that nothing would change.</dd>
+              <dt>What I built</dt>
+              <dd>A change to the Identity SDK: in verification mode it writes the authorization request it sent into an internal response header. The gateway reads that header, strips it before replying to the caller, and compares it with the request the gateway generates itself.</dd>
+              <dt>The comparison</dt>
+              <dd>JSON bodies are compared as nested maps. Known-variable fields such as timestamps are excluded by explicit field path, and list order is ignored only where the business meaning doesn't depend on it. Match, mismatch, and missing header each produce their own logs and metrics. The downstream allow or deny decision always stands.</dd>
+              <dt>How it shipped</dt>
+              <dd>I submitted the SDK pull request, ran a test build in pre-production with a canary service simulating downstream behavior, and supported the first 2 teams through migration. About 15 more teams used it to complete theirs.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job" data-id="sandbox" data-lens="identity" data-skills="groovy config java">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>An allowlist sandbox for team-written expressions</h3>
+          <p class="what">Replaced a blacklist with an explicit capability allowlist, so Groovy expressions written by service teams can read request data but never change it.</p>
+          <p class="meta">Context expression stage. Sandboxing, policy review, configuration distribution.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>The problem</dt>
+              <dd>Internal service teams write and audit Groovy expressions that compute request context. The gateway has to let them read what they need without modifying request state or reaching unsafe capabilities.</dd>
+              <dt>Why an allowlist</dt>
+              <dd>I started with a blacklist and found it couldn't reliably cover every mutation path. So I scanned existing expressions for their access patterns, reviewed the JDK classes they used, and moved to explicit allow rules.</dd>
+              <dt>The rules</dt>
+              <dd>Whole-class access only for classes whose source we control and have verified to be read-only; selected methods for everything else. Maps allow reads and iteration (<code>get</code>, <code>forEach</code>) but block <code>put</code>, <code>remove</code>, <code>clear</code>, and updates. No reflection. The rules apply to nested objects too.</dd>
+              <dt>Running it</dt>
+              <dd>The gateway team owns the global allowlist and reviews extension requests. Approved changes go out through the configuration service and refresh into a local cache every 5 minutes, so the request path has no remote dependency and nothing needs a redeploy. Unit and environment tests confirm expressions can no longer modify requests through the identified APIs.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job" data-id="logging" data-lens="reliability" data-skills="logs spi java grafana">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>Outcome-based log routing, with 80% fewer bytes to the log service</h3>
+          <p class="what">Proposed, built, and rolled out request-level log routing: error-path logs go to the searchable log service, everything else to object storage.</p>
+          <p class="meta">Logging, after the response. Observability, cost, Java logging internals.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>The problem</dt>
+              <dd>The gateway produced more log data than the logging service could comfortably ingest. Conventional reductions, like compacting stack traces and trimming tracing fields, weren't enough.</dd>
+              <dt>What I built</dt>
+              <dd>Each request buffers its already-formatted log lines. When the request finishes, its outcome decides where they go: internal-error and user-error requests go to the log service, where they can be queried and aggregated; the rest go to cheaper object storage.</dd>
+              <dt>Inside the stack</dt>
+              <dd>I extended the existing logging library through its Java SPI with a custom async appender, keeping the structured JSONL output and MDC context unchanged. A request-scoped marker carries the buffer across thread hand-offs and is always cleared before a worker thread returns.</dd>
+              <dt>Safeguards</dt>
+              <dd>The first design was sized from the log-size distribution, per-service in-flight limits, and the gateway's memory budget. As traffic grew I added hard limits of 300 lines and 5 minutes per request; past either, the request flushes and falls back to real-time logging.</dd>
+              <dt>Result</dt>
+              <dd>80% less data sent to the log server, measured in bytes in both pre-production and production.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job" data-id="java" data-lens="reliability" data-skills="java jfr maven rollout">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>Java 8 to 17, then 21 and 25, rolled out region by region</h3>
+          <p class="what">Led the worldwide runtime migration with staged bake periods and a clean rollback path, then carried the codebase on to Java 21 and 25.</p>
+          <p class="meta">Runtime under every stage. Change management, staged rollout, JVM diagnostics.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>The plan</dt>
+              <dd>Straight from 8 to 17, skipping 11: 17 was the newer LTS and the base for later Dropwizard 3 and Jetty 10 upgrades. I owned code changes, dependency compatibility, build-service configuration, testing, deployment, monitoring, and customer feedback.</dd>
+              <dt>The blocker</dt>
+              <dd>A required third-party dependency used JDK-internal <code>sun.*</code> APIs that don't work on 17, and waiting for an upstream fix would have stalled the migration. I decompiled the class, reimplemented it on supported APIs, swapped it in with the Maven Shade Plugin, and tested the final JAR.</dd>
+              <dt>The rollout</dt>
+              <dd>1 week in pre-production, 2 weeks in smaller production regions, then worldwide, watching CPU, memory, thread pools, error rates, traffic, and customer feedback. The JDK change shipped apart from feature releases so a rollback would never pull unrelated work.</dd>
+              <dt>After launch</dt>
+              <dd>Some customers still used legacy TLS cipher suites. With Security Board approval I added a time-boxed exception in the global configuration and removed it once they upgraded. Later, on Java 21 and 25, I diagnosed virtual-thread pinning with Java Flight Recorder.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job" data-id="dashboard" data-lens="" data-skills="ai">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>A workflow dashboard built with AI-assisted development</h3>
+          <p class="what">Pulled updates from Slack, Jira, Jira Service Desk, Bitbucket, and email into one page, so fewer pull requests and important updates slipped by.</p>
+          <p class="meta">Developer tooling. Codex, MCP servers, CLI and REST integrations.</p>
+          <details>
+            <summary><span class="when-closed">Read the details</span><span class="when-open">Hide the details</span></summary>
+            <dl class="deep">
+              <dt>What I built</dt>
+              <dd>A single page that aggregates the sources competing for my attention, built with AI coding tools rather than by hand.</dd>
+              <dt>The hard part</dt>
+              <dd>Choosing a data-access method per source, from CLIs to REST APIs to local MCP servers, and reusing one Codex app server for more than one job.</dd>
+            </dl>
+          </details>
+        </li>
+
+        <li class="job minor" data-id="iam" data-lens="identity" data-skills="authz">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>Cross-tenant IAM to add Functions as a gateway backend</h3>
+          <p class="what">Built a pilot with the Identity team using paired endorse and admit policies, proving a cross-tenant authorization model neither my team nor the partner team had used before.</p>
+        </li>
+
+        <li class="job minor" data-id="shipper" data-lens="reliability" data-skills="logs">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>A log-shipping agent that survives rotation and reboots</h3>
+          <p class="what">Tracks files by inode so log rotation doesn't lose them, records progress for resumable uploads, and splits work across parallel agents, each owning 20 minutes of logs with an hour to upload them, with metrics on every step.</p>
+        </li>
+
+        <li class="job minor" data-id="dualbuild" data-lens="reliability" data-skills="maven java">
+          <span class="mk" aria-hidden="true"></span>
+          <h3>One build, two framework generations</h3>
+          <p class="what">Used Maven profiles and framework-specific adapters so one build run produces both a Dropwizard 2 / Jetty 9 and a Dropwizard 3 / Jetty 10 version of the service.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="career-h">
+      <h2 id="career-h">Where I've worked</h2>
+      <p class="intro">Most recent first. Select a row for the details.</p>
+      <div class="career">
+        <div class="axis" aria-hidden="true">
+          <span></span>
+          <div class="ticks">
+            <span style="--y:2008">2008</span><span style="--y:2011">2011</span><span style="--y:2014">2014</span><span style="--y:2017">2017</span><span style="--y:2020">2020</span><span style="--y:2023">2023</span><span style="--y:2026">2026</span>
+          </div>
+        </div>
+        <ul class="rows">
+          <li class="current">
+            <details>
+              <summary class="row-sum">
+                <span><span class="co">Oracle Cloud Infrastructure</span><span class="ttl">Principal Member of Technical Staff, Control-Plane API Gateway</span><span class="dates">Seattle, WA. 2018 – Nov 2026</span></span>
+                <span class="track" style="--s:2018.75; --e:2026.87" aria-hidden="true"></span>
+              </summary>
+              <div class="more"><ul>
+                <li>Built and ran the gateway in front of OCI's control-plane services: authentication, authorization, throttling, quota, and routing for every request, in each of many fully isolated regions.</li>
+                <li>Stateless data plane; the control plane persists service API specs in Oracle NoSQL. Service metrics and on-call dashboards in Grafana.</li>
+                <li>The projects are above, under <a href="#work-section">What I built</a>.</li>
+              </ul></div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary class="row-sum">
+                <span><span class="co">eBay</span><span class="ttl">Senior Software Developer</span><span class="dates">Bellevue, WA. Oct 2016 – Sep 2018</span></span>
+                <span class="track" style="--s:2016.75; --e:2018.67" aria-hidden="true"></span>
+              </summary>
+              <div class="more"><ul>
+                <li>Designed and maintained the recommendation-delivery service (100M+ requests a day): Spring REST APIs for front ends, eBay's event-distribution system for ingesting recommendation data, Spring Batch jobs, and distributed Oracle Database access.</li>
+                <li>Led an internal refactoring that introduced annotation-based configuration and modernized the Spring-based JUnit test suite.</li>
+              </ul></div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary class="row-sum">
+                <span><span class="co">Rhapsody International (Napster)</span><span class="ttl">Senior Android Developer; Software Developer</span><span class="dates">Seattle, WA. Apr 2011 – Oct 2016</span></span>
+                <span class="track" style="--s:2011.25; --e:2016.75" aria-hidden="true"></span>
+              </summary>
+              <div class="more"><ul>
+                <li>Senior Android Developer (2012–2016): the Rhapsody Music Android app.</li>
+                <li>Software Developer (2011–2013): maintained the mobile-client API proxy (Spring, Tomcat) that combined multiple backend calls into a single XML or JSON response for mobile clients.</li>
+              </ul></div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary class="row-sum">
+                <span><span class="co">RealNetworks</span><span class="ttl">Senior SDET</span><span class="dates">Dec 2007 – Mar 2011</span></span>
+                <span class="track" style="--s:2007.92; --e:2011.17" aria-hidden="true"></span>
+              </summary>
+              <div class="more"><ul>
+                <li>Built 1,000+ JUnit-based automated tests and maintained a 4,000+ test suite for Spring web services covering user management, purchase orders, charging, and fulfillment.</li>
+                <li>Started and owned the performance-test suite on Linux.</li>
+              </ul></div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="skills-h">
+      <h2 id="skills-h">Skills</h2>
+      <p class="intro">Underlined skills link to the work that used them.</p>
+      <dl class="skills">
+        <dt>Languages and runtime</dt>
+        <dd><button class="sk" type="button" data-skill="java" data-name="Java">Java 8–25</button> (virtual threads, <button class="sk" type="button" data-skill="jfr" data-name="Java Flight Recorder">JFR</button>), <button class="sk" type="button" data-skill="groovy" data-name="Groovy">Groovy</button> (sandboxed expressions), SQL, Bash</dd>
+        <dt>Frameworks and build</dt>
+        <dd>Dropwizard, Jetty, Spring (REST, Batch), <button class="sk" type="button" data-skill="maven" data-name="Maven">Maven</button>, JUnit</dd>
+        <dt>Platform engineering</dt>
+        <dd>API gateways, <button class="sk" type="button" data-skill="authz" data-name="authentication, authorization, and IAM policy">authentication, authorization, and IAM policy</button>, <button class="sk" type="button" data-skill="ratelimit" data-name="rate limiting and quota">rate limiting and quota</button>, <button class="sk" type="button" data-skill="routing" data-name="request routing">request routing</button>, distributed systems, <button class="sk" type="button" data-skill="logs" data-name="log pipelines and observability">log pipelines and observability</button> (<button class="sk" type="button" data-skill="grafana" data-name="Grafana">Grafana</button>), <button class="sk" type="button" data-skill="rollout" data-name="staged global rollouts">staged global rollouts and rollback</button>, <button class="sk" type="button" data-skill="oncall" data-name="on-call and incident response">on-call and incident response</button></dd>
+        <dt>Data</dt>
+        <dd>Oracle NoSQL, Oracle Database</dd>
+        <dt>Infrastructure</dt>
+        <dd>Linux, Docker; homelab on Proxmox and TrueNAS (10GbE, RTX 3080)</dd>
+        <dt>AI-assisted development</dt>
+        <dd><button class="sk" type="button" data-skill="ai" data-name="AI-assisted development">Codex, MCP servers, CLI and REST integrations</button></dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="outside-h">
+      <h2 id="outside-h">Outside work</h2>
+      <p class="outside">Mentor for a FIRST Tech Challenge (FTC) robotics team in Sammamish, WA.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Updated October 2026</span>
+    <span class="links">
+      <a href="https://www.linkedin.com/in/xiaofeng-han/">LinkedIn</a>
+      <span id="email-slot-2"></span>
+    </span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var LENSES = {
+    traffic: {
+      name: "traffic and gateways",
+      lede: "For eight years I built and ran the control-plane API gateway for Oracle Cloud Infrastructure: authentication, authorization, throttling, quota, and routing in front of OCI's control-plane services, across many fully isolated regions.",
+      order: ["throttle","authz","sandbox","logging","java","dashboard","iam","shipper","dualbuild"]
+    },
+    identity: {
+      name: "identity and security",
+      lede: "For eight years I worked on the control-plane API gateway for Oracle Cloud Infrastructure, where I built the shadow-mode check that let service teams move authorization into the gateway, and put team-written Groovy expressions behind an explicit allowlist.",
+      order: ["authz","sandbox","iam","throttle","java","logging","dashboard","shipper","dualbuild"]
+    },
+    reliability: {
+      name: "reliability and observability",
+      lede: "For eight years I kept the control-plane API gateway for Oracle Cloud Infrastructure steady across many isolated regions: shedding load on call, rolling runtime upgrades out region by region, and cutting log ingestion by 80%.",
+      order: ["throttle","java","logging","shipper","authz","sandbox","dualbuild","dashboard","iam"]
+    }
+  };
+
+  var store = {
+    get: function(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } },
+    set: function(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+  };
+
+  /* ---------- theme ---------- */
+  var themeBtn = document.getElementById("theme-btn");
+  function isDark(){
+    var t = root.getAttribute("data-theme");
+    if (t) return t === "dark";
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function paintThemeBtn(){
+    var dark = isDark();
+    document.getElementById("ic-moon").toggleAttribute("hidden", dark);
+    document.getElementById("ic-sun").toggleAttribute("hidden", !dark);
+    themeBtn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  }
+  var savedTheme = store.get("xh-theme");
+  if (savedTheme === "light" || savedTheme === "dark") root.setAttribute("data-theme", savedTheme);
+  paintThemeBtn();
+  themeBtn.addEventListener("click", function(){
+    var next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    store.set("xh-theme", next);
+    paintThemeBtn();
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", paintThemeBtn);
+  }
+
+  /* ---------- email (assembled in the browser, not in the page source) ---------- */
+  var addr = ["hhhanxf", "gmail.com"].join("@");
+  function emailLink(){ var a = document.createElement("a"); a.href = "mailto:" + addr; a.textContent = addr; return a; }
+  document.getElementById("email-btn").addEventListener("click", function(){
+    var slot = document.getElementById("email-slot");
+    slot.innerHTML = ""; var a = emailLink(); slot.appendChild(a); a.focus();
+  });
+  document.getElementById("email-slot-2").appendChild(emailLink());
+  document.getElementById("print-contact").textContent = "  |  " + addr + "  |  linkedin.com/in/xiaofeng-han";
+  document.getElementById("print-btn").addEventListener("click", function(){ window.print(); });
+
+  /* ---------- lens ---------- */
+  var work = document.getElementById("work");
+  var lensBtns = Array.prototype.slice.call(document.querySelectorAll(".lens-btn"));
+  var lede = document.getElementById("lede");
+  var intro = document.getElementById("work-intro");
+  var status = document.getElementById("status");
+  var current = null;
+
+  function hasLens(el, lens){
+    var v = (el.getAttribute("data-lens") || "").split(/\s+/);
+    return v.indexOf(lens) !== -1;
+  }
+
+  function reorder(order, animate){
+    var items = Array.prototype.slice.call(work.children);
+    var before = new Map();
+    items.forEach(function(el){ before.set(el, el.getBoundingClientRect().top); });
+    order.forEach(function(id){
+      var el = work.querySelector('[data-id="' + id + '"]');
+      if (el) work.appendChild(el);
+    });
+    if (!animate || reduce || !Element.prototype.animate) return;
+    items.forEach(function(el){
+      var dy = before.get(el) - el.getBoundingClientRect().top;
+      if (Math.abs(dy) > 1) {
+        el.animate([{ transform: "translateY(" + dy + "px)" }, { transform: "none" }],
+                   { duration: 460, easing: "cubic-bezier(.2,.7,.2,1)" });
+      }
+    });
+  }
+
+  function setLens(lens, opts){
+    opts = opts || {};
+    if (!LENSES[lens]) lens = "traffic";
+    if (lens === current) return;
+    var first = current === null;
+    current = lens;
+    root.setAttribute("data-lens", lens);
+    lensBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-lens") === lens)); });
+
+    document.querySelectorAll(".stn[data-target], .rail, .job").forEach(function(el){
+      el.classList.toggle("on", hasLens(el, lens));
+    });
+
+    var L = LENSES[lens];
+    if (first || reduce) { lede.textContent = L.lede; }
+    else {
+      lede.classList.add("swap");
+      setTimeout(function(){ lede.textContent = L.lede; lede.classList.remove("swap"); }, 180);
+    }
+    intro.innerHTML = "Ordered for <b>" + L.name + "</b>. Stations ringed in that color matter most for it. Open any one for the details.";
+    reorder(L.order, !first);
+
+    if (opts.updateUrl) {
+      try {
+        var u = new URL(window.location.href);
+        if (lens === "traffic") u.searchParams.delete("focus"); else u.searchParams.set("focus", lens);
+        u.hash = "";
+        history.replaceState(null, "", u.toString());
+      } catch(e){}
+    }
+  }
+
+  lensBtns.forEach(function(b){
+    b.addEventListener("click", function(){ setLens(b.getAttribute("data-lens"), { updateUrl: true }); });
+  });
+
+  var params = new URLSearchParams(window.location.search);
+  var initial = params.get("focus") || params.get("lens") || (window.location.hash || "").replace("#", "");
+  setLens(LENSES[initial] ? initial : "traffic", { updateUrl: false });
+
+  /* ---------- copy link ---------- */
+  var statusTimer;
+  function say(msg){
+    status.textContent = msg;
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(function(){ status.textContent = ""; }, 2600);
+  }
+  document.getElementById("copy-btn").addEventListener("click", function(){
+    var u;
+    try {
+      u = new URL(window.location.href); u.hash = ""; u.search = "";
+      if (current !== "traffic") u.searchParams.set("focus", current);
+      u = u.toString();
+    } catch(e){ u = window.location.href; }
+    function fallback(){
+      var t = document.createElement("textarea"); t.value = u; t.setAttribute("readonly", "");
+      t.style.position = "absolute"; t.style.left = "-9999px"; document.body.appendChild(t); t.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch(e){}
+      document.body.removeChild(t);
+      say(ok ? "Link copied" : u);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(u).then(function(){ say("Link copied"); }, fallback);
+    } else fallback();
+  });
+
+  /* ---------- stations open their project ---------- */
+  var selected = null;
+  function openProject(id, stationEl){
+    var job = work.querySelector('[data-id="' + id + '"]');
+    if (!job) return;
+    if (selected) selected.classList.remove("sel");
+    selected = stationEl; if (selected) selected.classList.add("sel");
+    var d = job.querySelector("details"); if (d) d.open = true;
+    clearFilter();
+    job.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    job.classList.remove("flash"); void job.offsetWidth; job.classList.add("flash");
+    var h = job.querySelector("h3");
+    if (h) { h.setAttribute("tabindex", "-1"); setTimeout(function(){ h.focus({ preventScroll: true }); }, reduce ? 0 : 450); }
+  }
+  document.querySelectorAll(".stn[data-target] .hit").forEach(function(btn){
+    var stn = btn.closest(".stn");
+    btn.addEventListener("click", function(){ openProject(stn.getAttribute("data-target"), stn); });
+  });
+  var rail = document.querySelector(".rail");
+  rail.addEventListener("click", function(){ openProject(rail.getAttribute("data-target"), rail); });
+
+  /* ---------- skill filter ---------- */
+  var filter = document.getElementById("filter");
+  var filterText = document.getElementById("filter-text");
+  var skillBtns = Array.prototype.slice.call(document.querySelectorAll(".sk"));
+  function clearFilter(){
+    filter.classList.remove("show");
+    skillBtns.forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
+    Array.prototype.forEach.call(work.children, function(el){ el.classList.remove("dim", "match"); });
+  }
+  skillBtns.forEach(function(b){
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function(){
+      if (b.getAttribute("aria-pressed") === "true") { clearFilter(); return; }
+      clearFilter();
+      var key = b.getAttribute("data-skill");
+      var n = 0;
+      Array.prototype.forEach.call(work.children, function(el){
+        var s = (el.getAttribute("data-skills") || "").split(/\s+/);
+        var hit = s.indexOf(key) !== -1;
+        el.classList.toggle("match", hit);
+        el.classList.toggle("dim", !hit);
+        if (hit) n++;
+      });
+      b.setAttribute("aria-pressed", "true");
+      filterText.textContent = "Showing " + n + (n === 1 ? " project" : " projects") + " that used " + b.getAttribute("data-name") + ".";
+      filter.classList.add("show");
+      var firstHit = work.querySelector(".job.match");
+      (firstHit || document.getElementById("work-section")).scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    });
+  });
+  document.getElementById("filter-clear").addEventListener("click", clearFilter);
+
+  /* ---------- one request runs the route, once ---------- */
+  var route = document.getElementById("route");
+  function run(){ if (!reduce) route.classList.add("run"); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run, run); else run();
+})();
+</script>
+</body>
+</html>
