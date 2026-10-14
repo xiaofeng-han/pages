@@ -6,11 +6,12 @@ A single static page (`index.html`, no build step) covering eight years on the O
 
 ## Links for each resume version
 
-The page reorders the projects and changes the summary for three focuses:
+The page opens with every project shown, and can reorder the projects and change the summary for three focuses:
 
 | Focus | Link |
 | --- | --- |
-| Traffic and gateways | https://xiaofeng-han.github.io/pages/ |
+| Show all (default) | https://xiaofeng-han.github.io/pages/ |
+| Traffic and gateways | https://xiaofeng-han.github.io/pages/?focus=traffic |
 | Identity and security | https://xiaofeng-han.github.io/pages/?focus=identity |
 | Reliability and observability | https://xiaofeng-han.github.io/pages/?focus=reliability |
 
