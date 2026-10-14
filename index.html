@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300..900&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='13' width='28' height='6' fill='%23C13A22'/%3E%3Crect x='9' y='9' width='14' height='14' fill='white' stroke='%23C13A22' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='13' width='28' height='6' fill='%23C13A22'/%3E%3Ccircle cx='16' cy='16' r='7' fill='white' stroke='%23C13A22' stroke-width='4'/%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#0C1620;
@@ -140,7 +140,7 @@ h1{
 }
 .stn{ flex:1 1 0; min-width:0; position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; }
 .stn > .hit{ display:flex; flex-direction:column; align-items:center; width:100%; padding:0 4px 4px; background:none; border:0; cursor:pointer; }
-.dot{ display:block; width:24px; height:24px; position:relative; z-index:1; flex:none; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s, background .3s, transform .2s; }
+.dot{ display:block; width:24px; height:24px; border-radius:50%; position:relative; z-index:1; flex:none; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s, background .3s, transform .2s; }
 .stn.minor .dot{ width:12px; height:12px; margin:6px 0; border:0; background:var(--muted); }
 .stn.on .dot{ border-color:var(--lens); }
 .stn.sel .dot{ background:var(--lens); }
@@ -151,7 +151,7 @@ h1{
 .stn.end .lbl{ font-size:1.0625rem; }
 .hit:hover .lbl{ text-decoration:underline; text-underline-offset:.2em; }
 
-.packet{ position:absolute; top:5px; left:calc(100%/14); width:14px; height:14px; margin-left:-7px; background:var(--ink); box-shadow:0 0 0 4px var(--surface); opacity:0; z-index:2; pointer-events:none; }
+.packet{ position:absolute; top:5px; left:calc(100%/14); width:14px; height:14px; margin-left:-7px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 4px var(--surface); opacity:0; z-index:2; pointer-events:none; }
 .route.run .packet{ animation:travel 2.6s cubic-bezier(.45,.05,.35,1) .35s 1 both; }
 @keyframes travel{
   0%{ left:calc(100%/14); opacity:0; }
@@ -209,7 +209,7 @@ h2{ font-size:clamp(1.875rem, 3.6vw, 2.25rem); line-height:1.1; font-weight:800;
 .work::before{ content:""; position:absolute; left:12.5px; top:20px; bottom:20px; width:6px; background:var(--line-v); }
 .job{ position:relative; padding:0 0 30px 56px; scroll-margin-top:96px; }
 .job:last-child{ padding-bottom:0; }
-.job > .mk{ position:absolute; left:3.5px; top:2px; width:24px; height:24px; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s; }
+.job > .mk{ position:absolute; left:3.5px; top:2px; width:24px; height:24px; border-radius:50%; background:var(--surface); border:4px solid var(--muted); transition:border-color .3s; }
 .job.on > .mk{ border-color:var(--lens); }
 .job.minor > .mk{ width:12px; height:12px; left:9.5px; top:8px; border:0; background:var(--muted); }
 .job h3{ margin:0; font-size:1.3125rem; line-height:1.3; font-weight:700; max-width:var(--measure); }
@@ -760,7 +760,7 @@ footer .links{ display:flex; flex-wrap:wrap; gap:6px 20px; }
     }
     intro.innerHTML = lens === "all"
       ? "All projects, most significant first. Select a focus above to reorder them, or open any one for the details."
-      : "Ordered for <b>" + L.name + "</b>. Stations outlined in that color matter most for it. Open any one for the details.";
+      : "Ordered for <b>" + L.name + "</b>. Stations ringed in that color matter most for it. Open any one for the details.";
     reorder(L.order, !first);
 
     if (opts.updateUrl) {
